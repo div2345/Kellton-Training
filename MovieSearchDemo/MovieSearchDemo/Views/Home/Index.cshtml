@@ -1,0 +1,109 @@
+﻿
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+@model List<Movie>
+
+<head>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+    </style>
+</head>
+
+<div id="completeMovieList">
+    <table style="width:100%">
+        <tr>
+            <th>MovieId</th>
+            <th>MovieName</th>
+            <th>ReleaseYear</th>
+            <th>Genre</th>
+
+        </tr>
+
+
+        <h3>Movie Details:   </h3>
+
+       
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th>@item.MovieId</th>
+                    <th>@item.MovieName</th>
+                    <th>@item.ReleaseYear</th>
+                    <th>@item.Genre</th>
+
+                </tr>
+            }
+        </table>
+
+</div>
+<div id="filteredMovie">
+
+</div>
+
+
+<div class="row">
+    <form method="post">
+        Enter ID to search: <br>
+        <input type="text" id="movieId" name="movieId">
+        <br>
+        <br>
+        <input id="btnSubmit" type="button" value="Submit">
+    </form>
+</div>
+
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+@*<script>
+        $('#btnSubmit').click(function () {
+
+            $.ajax(
+                {
+                    url: '/Home/Index',
+                    type: 'POST',
+                    data: $('#DetailsForm').serialize(),
+                    //success: function (response) {
+                    //    $('#show').html(response);
+
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+                    }).done(function (result) {
+                $('#container').html(result);
+
+            });
+    </script>*@
+
+
+<script>
+    $('#btnSubmit').click(function () {
+
+        $.ajax(
+            {
+                url: '/Home/Index',
+                type: 'POST',
+                data: { 'movieId': $('#movieId').val() },
+
+                success: function (response) {
+                   // $('#completeMovieList').hide();
+                    $('#filteredMovie').html(response);
+                    $('#filteredMovie').show();
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+    });
+</script>
+
+
+
+
+
+

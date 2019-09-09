@@ -1,0 +1,28 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model Movie
+
+
+@{
+    Layout = null;
+}
+
+
+<h3>Movie Details:   </h3>
+<div id="listOfMovies">
+    <table class="table">
+
+        <tr>
+            <th>@Model.MovieId</th>
+            <th>@Model.MovieName</th>
+            <th>@Model.ReleaseYear</th>
+            <th>@Model.Genre</th>
+
+        </tr>
+
+    </table>
+
+</div>
+
