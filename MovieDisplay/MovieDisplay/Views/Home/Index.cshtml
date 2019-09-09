@@ -1,0 +1,81 @@
+﻿
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+@using X.PagedList;
+
+@*@using X.PagedList.Mvc.Core;*@
+
+@model X.PagedList.IPagedList<MovieDisplay.Models.MovieModel>
+
+
+
+<head>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+    </style>
+</head>
+<h3>Movie Details:   </h3>
+<div id="example" class="display">
+    <table style="width:100%">
+        <tr>
+            <th> @Html.ActionLink("MovieId", "Index", new { sortBy = ViewBag.MovieIDSort })</th>
+            <th> @Html.ActionLink("MovieName", "Index", new { sortBy = ViewBag.MovieSort })</th>
+            <th> @Html.ActionLink("ReleaseYear", "Index", new { sortBy = ViewBag.ReleaseYearSort })</th>
+            <th> @Html.ActionLink("Genre", "Index", new { sortBy = ViewBag.GenreSort })</th>
+
+
+        </tr>
+        @*<tr>
+                <th></th>
+               <th> @Html.ActionLink("MovieId", "Index", new { sortBy = ViewBag.NameSort })</th>
+                <th>@Html.ActionLink("MovieName", "Index", new { sortBy = ViewBag.MovieSort })</th>
+                <th> ReleaseYear</th>
+                <th> Genre</th>
+            </tr>
+
+        *@
+
+
+
+
+        @foreach (var item in Model)
+        {
+
+            <tr>
+                <th>@item.MovieId</th>
+                <th>@item.MovieName</th>
+                <th>@item.ReleaseYear</th>
+                <th>@item.Genre</th>
+
+            </tr>
+        }
+    </table>
+</div>
+@*<div>
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    @PagedList.Html.PagedListPager(Model, page => Url.Action("Index",
+        new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+    </div>*@
+
+@*@X.PagedList.Mvc.Core.HtmlHelper.PageListPager(Model, page => Url.Action("Index", new { page }))*@
+</div>
+
+
+@X.PagedList.Mvc.Core.HtmlHelper.PagedListPager(Html, @Model, page => Url.Action("Index", new { page=page, }))
+
+
+@*<pager class="pager-container" list="@Model" options="@PagedListRenderOptions.Minimal" asp-action="Index" asp-controller="Search" />*@
+
+
+
+@*<pager class="pager-container" list="@Model" options="@PagedListRenderOptions.Minimal" asp-action="Index" asp-controller="Search" asp-route-query="" />*@
+
+
+<pager pager-model="@Model"></pager>
